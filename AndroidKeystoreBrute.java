@@ -5,6 +5,8 @@
  */
 package AndroidKeystoreBrute;
 
+import java.lang.Math;
+
 public class AndroidKeystoreBrute {
   static final int BRUTE = 1;
   static final int WORD = 2;
@@ -18,6 +20,8 @@ public class AndroidKeystoreBrute {
   public static int minpieces = 1;
   public static int maxpieces = 64;
   public static String firstchars = null;
+  public static String tailFile = null;
+  public static int tailLength;
 
   public static void main(String[] args) throws Exception {
     String start = "A";
@@ -77,10 +81,23 @@ public class AndroidKeystoreBrute {
         i++;
         maxpieces = Integer.parseInt(args[i]);
         break;
+      case "-savetail":
+        i++;
+        tailFile = args[i];
+        i++;
+        tailLength = Integer.parseInt(args[i]);
+        break;
       default:
         Output.println("Unknown argument: " + args[i]);
         return;
       }
+    }
+
+    if (tailFile != null) {
+      Output.init(Output.composite(
+        Output.DEFAULT_OUTPUT,
+        new Output.TailedFilePrinter(tailFile, Math.min(tailLength, 10))
+      ));
     }
 
     // Prevent restart from a when using only lowercase with a defined start string
@@ -130,6 +147,7 @@ public class AndroidKeystoreBrute {
     Output.println("-onlylower for only lowercase letters");
     Output.println("-w saves the certificate in a new Keystore with same password as key");
     Output.println("-p use common replacements like '@' for 'a'(for method 3) WARNING: This is very slow. Do not use on dictionaries with more than 250 entries.\r\n");
+    Output.println("-savetail <file> <max> specify file where output tail should be stored and tail length\r\n");
     Output.println("-h prints this helpscreen\r\n");
 
     long maxBytes = Runtime.getRuntime().maxMemory();
