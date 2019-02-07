@@ -1,0 +1,11 @@
+FROM java:7-jdk-alpine
+# Set the working directory to /app
+WORKDIR /app
+
+RUN apk add --no-cache openssh-client
+
+# Copy the current directory contents into the container at /app
+ADD tmp /app/android-keystore-password-recover
+
+WORKDIR /app/android-keystore-password-recover
+RUN /app/android-keystore-password-recover/build.sh
