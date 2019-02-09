@@ -89,13 +89,13 @@ public class BrutePasswd extends Thread {
         found = true;
 
         // We are lucky
-        System.out.println("Got Password!");
-        System.out.println("Password is: " + passwd + " for alias " + alias);
+        Output.println("Got Password!");
+        Output.println("Password is: " + passwd + " for alias " + alias);
 
         try {
           if (AndroidKeystoreBrute.saveNewKeystore) {
             j.engineStore(new FileOutputStream(keystoreFileName + "_recovered"), new String(passwd).toCharArray());
-            System.out.println("Saved new keystore to: " + keystoreFileName + "_recovered");
+            Output.println("Saved new keystore to: " + keystoreFileName + "_recovered");
           } // end of if
         } catch (Exception e) {
           e.printStackTrace();
@@ -126,15 +126,15 @@ public class BrutePasswd extends Thread {
     try {
       j = new JKS();
       j.engineLoad(in, pass);
-      System.out.println("\r\nNumber of keys in keystore: " + j.engineSize());
+      Output.println("\r\nNumber of keys in keystore: " + j.engineSize());
 
       @SuppressWarnings("rawtypes")
       Enumeration e = j.engineAliases();
 
       while (e.hasMoreElements()) {
         String a = (String) e.nextElement();
-        System.out.println("Found alias: " + a);
-        System.out.println("Creation Date: " + j.engineGetCreationDate(a));
+        Output.println("Found alias: " + a);
+        Output.println("Creation Date: " + j.engineGetCreationDate(a));
         alias = a;
       }
 
@@ -149,7 +149,7 @@ public class BrutePasswd extends Thread {
 
       new BruteBenchmark().start();
 
-      System.out.println("Fire up " + numberOfThreads + " Threads\r\n");
+      Output.println("Fire up " + numberOfThreads + " Threads\r\n");
 
     } catch (Exception e) {
       e.printStackTrace();

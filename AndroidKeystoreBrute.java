@@ -78,7 +78,7 @@ public class AndroidKeystoreBrute {
         maxpieces = Integer.parseInt(args[i]);
         break;
       default:
-        System.out.println("Unknown argument: " + args[i]);
+        Output.println("Unknown argument: " + args[i]);
         return;
       }
     }
@@ -106,36 +106,36 @@ public class AndroidKeystoreBrute {
   }
 
   public static void quit() {
-    System.out.println("\r\nFor updates visit http://code.google.com/p/android-keystore-password-recover/");
+    Output.println("\r\nFor updates visit http://code.google.com/p/android-keystore-password-recover/");
     System.exit(0);
   }
 
   static void printhelp() {
-    System.out.println("AndroidKeystorePasswordRecoveryTool by M@xiking");
-    System.out.println("Version " + VERSION + "\r\n");
-    System.out.println("There are 3 Methods to recover the key for your Keystore:\r\n");
-    System.out.println("1: simply bruteforce - good luck");
-    System.out.println("2: dictionary attack - your password has to be in the dictionary");
-    System.out.println("3: smart dictionary attack - you specify a dictionary with regular pieces you use in your passwords. Numbers are automaticly added and first letter will tested uppercase and lowercase. This method can resume when interrupted as long as you specify the same arguments.\r\n");
-    System.out.println("args:");
-    System.out.println("-m <1..3> Method");
-    System.out.println("-k <path> path to your keystore");
-    System.out.println("-d <path> dictionary (for method 2 and 3)");
-    System.out.println("-l <min> sets min password length in characters (for method 3)");
-    System.out.println("-start <String> sets start String of the word (for method 1)");
-    System.out.println("-firstchars <String> specify first characters of the password (for method 3)");
-    System.out.println("-pieces <min> <max> specify the min and max number of pieces to use when building passwords (for method 3)\r\n");
+    Output.println("AndroidKeystorePasswordRecoveryTool by M@xiking");
+    Output.println("Version " + VERSION + "\r\n");
+    Output.println("There are 3 Methods to recover the key for your Keystore:\r\n");
+    Output.println("1: simply bruteforce - good luck");
+    Output.println("2: dictionary attack - your password has to be in the dictionary");
+    Output.println("3: smart dictionary attack - you specify a dictionary with regular pieces you use in your passwords. Numbers are automaticly added and first letter will tested uppercase and lowercase. This method can resume when interrupted as long as you specify the same arguments.\r\n");
+    Output.println("args:");
+    Output.println("-m <1..3> Method");
+    Output.println("-k <path> path to your keystore");
+    Output.println("-d <path> dictionary (for method 2 and 3)");
+    Output.println("-l <min> sets min password length in characters (for method 3)");
+    Output.println("-start <String> sets start String of the word (for method 1)");
+    Output.println("-firstchars <String> specify first characters of the password (for method 3)");
+    Output.println("-pieces <min> <max> specify the min and max number of pieces to use when building passwords (for method 3)\r\n");
 
-    System.out.println("-nospecials to not try special characters in password (makes cracking faster for simple passwords)");
-    System.out.println("-onlylower for only lowercase letters");
-    System.out.println("-w saves the certificate in a new Keystore with same password as key");
-    System.out.println("-p use common replacements like '@' for 'a'(for method 3) WARNING: This is very slow. Do not use on dictionaries with more than 250 entries.\r\n");
-    System.out.println("-h prints this helpscreen\r\n");
+    Output.println("-nospecials to not try special characters in password (makes cracking faster for simple passwords)");
+    Output.println("-onlylower for only lowercase letters");
+    Output.println("-w saves the certificate in a new Keystore with same password as key");
+    Output.println("-p use common replacements like '@' for 'a'(for method 3) WARNING: This is very slow. Do not use on dictionaries with more than 250 entries.\r\n");
+    Output.println("-h prints this helpscreen\r\n");
 
     long maxBytes = Runtime.getRuntime().maxMemory();
-    System.out.println("Max memory: " + maxBytes / 1024L / 1024L + "M\r\n");
+    Output.println("Max memory: " + maxBytes / 1024L / 1024L + "M\r\n");
 
-    System.out.println("v1.06 updated by rafaelwbr; v1.07 updated by ravensbane");
-    System.out.println("For updates visit http://code.google.com/p/android-keystore-password-recover/");
+    Output.println("v1.06 updated by rafaelwbr; v1.07 updated by ravensbane");
+    Output.println("For updates visit http://code.google.com/p/android-keystore-password-recover/");
   }
 }

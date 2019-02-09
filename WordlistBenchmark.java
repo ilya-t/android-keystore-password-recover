@@ -19,9 +19,9 @@ public class WordlistBenchmark extends Thread {
   public void run() {
     while (!WordlistPasswd.found && WordlistPasswd.currentPass != null) {
       if ((System.nanoTime() - lastCall) > 1000000000) {
-        System.out.println("Current Pass: " + String.valueOf(WordlistPasswd.currentPass) + " || est. "
+        Output.println("Current Pass: " + String.valueOf(WordlistPasswd.currentPass) + " || est. "
             + (WordlistPasswd.testedPwds - lastCount) + " Pass/Sec");
-        System.out.println();
+        Output.println();
 
         lastCall = System.nanoTime();
         lastCount = WordlistPasswd.testedPwds;
@@ -32,7 +32,7 @@ public class WordlistBenchmark extends Thread {
 
         }
       } else {
-        // System.out.println("Too much");
+        // Output.println("Too much");
       }
     }
   }

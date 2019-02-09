@@ -38,15 +38,15 @@ public class SmartWordlistPasswd extends Thread {
     try {
       j = new JKS();
       j.engineLoad(in, pass.toCharArray());
-      System.out.println("\r\nNumber of keys in keystore: " + j.engineSize());
+      Output.println("\r\nNumber of keys in keystore: " + j.engineSize());
 
       @SuppressWarnings("rawtypes")
       Enumeration e = j.engineAliases();
 
       while (e.hasMoreElements()) {
         String a = (String) e.nextElement();
-        System.out.println("Found alias: " + a);
-        System.out.println("Creation Date: " + j.engineGetCreationDate(a));
+        Output.println("Found alias: " + a);
+        Output.println("Creation Date: " + j.engineGetCreationDate(a));
         alias = a;
       }
 
@@ -60,14 +60,14 @@ public class SmartWordlistPasswd extends Thread {
       keystoreFileName = keystore;
       dictFileName = dict;
 
-      System.out.println("\r\nStarting smart wordlist attack on key!!");
+      Output.println("\r\nStarting smart wordlist attack on key!!");
       if (AndroidKeystoreBrute.permutations)
-        System.out.println("Using common replacements");
+        Output.println("Using common replacements");
       else if (AndroidKeystoreBrute.onlyLowerCase == false)
-        System.out.println("Trying variations with first letter capitalized\r\n");
+        Output.println("Trying variations with first letter capitalized\r\n");
 
       int numberOfThreads = Runtime.getRuntime().availableProcessors();
-      System.out.println("Firing up " + numberOfThreads + " threads\r\n");
+      Output.println("Firing up " + numberOfThreads + " threads\r\n");
 
       // we'll use this queue to hold password combinations we're waiting to test
       LinkedTransferQueue<String> queue = new LinkedTransferQueue<String>();
@@ -94,20 +94,20 @@ public class SmartWordlistPasswd extends Thread {
   public static void complete(String passwd) {
     if (found) {
       // We are lucky
-      System.out.println("Got Password!");
-      System.out.println("Password is: " + passwd + " for alias " + alias);
+      Output.println("Got Password!");
+      Output.println("Password is: " + passwd + " for alias " + alias);
 
       try {
         if (AndroidKeystoreBrute.saveNewKeystore) {
           j.engineStore(new FileOutputStream(keystoreFileName + "_recovered"), new String(passwd).toCharArray());
 
-          System.out.println("Saved new keystore to: " + keystoreFileName + "_recovered");
+          Output.println("Saved new keystore to: " + keystoreFileName + "_recovered");
         } // end of if
       } catch (Exception e) {
         e.printStackTrace();
       }
     } else {
-      System.out.println("No matching key combination in wordlist; try another wordlist.");
+      Output.println("No matching key combination in wordlist; try another wordlist.");
     }
 
     AndroidKeystoreBrute.quit();

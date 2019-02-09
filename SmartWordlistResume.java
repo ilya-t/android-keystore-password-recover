@@ -60,9 +60,9 @@ public class SmartWordlistResume extends Thread {
 
           writer.close();
 
-          System.out.println("Progress saved in file: " + resumeFile + "\r\n");
+          Output.println("Progress saved in file: " + resumeFile + "\r\n");
         } catch (Exception e) {
-          System.out.println("Unable to write to file: " + resumeFile + "\r\n");
+          Output.println("Unable to write to file: " + resumeFile + "\r\n");
         }
 
         lastCall = System.nanoTime();
@@ -78,7 +78,7 @@ public class SmartWordlistResume extends Thread {
     try {
       file.delete();
     } catch (Exception e) {
-      System.out.println("Unable to delete file: " + resumeFile);
+      Output.println("Unable to delete file: " + resumeFile);
     }
   }
 

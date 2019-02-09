@@ -50,7 +50,7 @@ public class SmartWordlistProducer implements Runnable {
       if (resumePoint.size() < AndroidKeystoreBrute.minpieces) {
         throw new IOException("numpieces arg specifies a larger min number of pieces than resume data");
       } else {
-        System.out.println("Resuming where we left off...");
+        Output.println("Resuming where we left off...");
         for (int i = 1; i <= resumePoint.size(); ++i) {
           comboToTest[i] = resumePoint.get(i - 1);
         }
@@ -136,7 +136,7 @@ public class SmartWordlistProducer implements Runnable {
         continue;
 
       if (!memoryWarning && Runtime.getRuntime().totalMemory() / maxBytes > 0.45) {
-        System.out.println("Warning: Available memory low. Application may not be able to allocate enough memory "
+        Output.println("Warning: Available memory low. Application may not be able to allocate enough memory "
             + "to process wordlist. If application hangs try not using the -p argument or use a "
             + "smaller wordlist.\r\n");
         memoryWarning = true;

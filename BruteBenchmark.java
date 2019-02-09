@@ -15,9 +15,9 @@ public class BruteBenchmark extends Thread {
   public void run() {
     while (!BrutePasswd.found) {
       if ((System.nanoTime() - lastCall) > 1000000000) {
-        System.out.println("Current Pass: " + String.copyValueOf(BrutePasswd.currPass) + " || est. "
+        Output.println("Current Pass: " + String.copyValueOf(BrutePasswd.currPass) + " || est. "
             + ((BrutePasswd.testedPwds - lastCount)) + " Pass/Sec");
-        System.out.println();
+        Output.println();
 
         lastCall = System.nanoTime();
         lastCount = BrutePasswd.testedPwds;
@@ -28,7 +28,7 @@ public class BruteBenchmark extends Thread {
 
         }
       } else {
-        // System.out.println("Too much");
+        // Output.println("Too much");
       }
     }
   }

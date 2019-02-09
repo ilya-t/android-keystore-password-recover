@@ -42,19 +42,19 @@ public class WordlistPasswd {
     try {
       j = new JKS();
       j.engineLoad(in, pass);
-      System.out.println("\r\nNumber of keys in keystore: " + j.engineSize());
+      Output.println("\r\nNumber of keys in keystore: " + j.engineSize());
       @SuppressWarnings("rawtypes")
       Enumeration e = j.engineAliases();
       while (e.hasMoreElements()) {
         String a = (String) e.nextElement();
-        System.out.println("Found alias: " + a);
-        System.out.println("Creation Date: " + j.engineGetCreationDate(a));
+        Output.println("Found alias: " + a);
+        Output.println("Creation Date: " + j.engineGetCreationDate(a));
         alias = a;
       }
       in.close();
 
       BufferedReader file = new BufferedReader(new InputStreamReader(new FileInputStream(wordlist)));
-      System.out.println("\r\nStart dictionary attack on key!!\r\n");
+      Output.println("\r\nStart dictionary attack on key!!\r\n");
       long initTime = System.currentTimeMillis();
       new WordlistBenchmark().start();
       in = new FileInputStream(keystore);
@@ -80,15 +80,15 @@ public class WordlistPasswd {
 
       if (found) {
         // We are lucky
-        System.out.println("Got Password in " + ((System.currentTimeMillis() - initTime)) / 1000 + " seconds");
-        System.out.println("Password is: " + passwd + " for alias " + alias);
+        Output.println("Got Password in " + ((System.currentTimeMillis() - initTime)) / 1000 + " seconds");
+        Output.println("Password is: " + passwd + " for alias " + alias);
 
         if (AndroidKeystoreBrute.saveNewKeystore) {
           j.engineStore(new FileOutputStream(keystore + "_recovered"), new String(passwd).toCharArray());
-          System.out.println("Saved new keystore to: " + keystore + "_recovered");
+          Output.println("Saved new keystore to: " + keystore + "_recovered");
         } // end of if
       } else {
-        System.out.println("No matching key in wordlist; try an other wordlist!!");
+        Output.println("No matching key in wordlist; try an other wordlist!!");
       }
 
       AndroidKeystoreBrute.quit();
