@@ -22,6 +22,7 @@ public class AndroidKeystoreBrute {
   public static String firstchars = null;
   public static String tailFile = null;
   public static int tailLength;
+  public static Output.TailedFilePrinter TAIL_PRINTER;
 
   public static void main(String[] args) throws Exception {
     String start = "A";
@@ -94,9 +95,10 @@ public class AndroidKeystoreBrute {
     }
 
     if (tailFile != null) {
+      TAIL_PRINTER = new Output.TailedFilePrinter(tailFile, Math.min(tailLength, 10));
       Output.init(Output.composite(
         Output.DEFAULT_OUTPUT,
-        new Output.TailedFilePrinter(tailFile, Math.min(tailLength, 10))
+        TAIL_PRINTER
       ));
     }
 
@@ -124,6 +126,10 @@ public class AndroidKeystoreBrute {
 
   public static void quit() {
     Output.println("\r\nFor updates visit http://code.google.com/p/android-keystore-password-recover/");
+    if (TAIL_PRINTER != null) {
+      TAIL_PRINTER.finish();
+    }
+    
     System.exit(0);
   }
 

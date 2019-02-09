@@ -24,43 +24,48 @@ public class Output {
             this.tailLength = tailLength;
         }
 
-            @Override
-            public void println(String s) {
-                lines.add(s);
+        @Override
+        public void println(String s) {
+            lines.add(s);
 
-                if (lines.size() > tailLength) {
-                    writeToFile();
-                    lines.clear();
-                }
+            if (lines.size() > tailLength) {
+                writeToFile();
+                lines.clear();
             }
+        }
 
-            @Override
-            public void println() {
-                println("");
+        @Override
+        public void println() {
+            println("");
+        }
+
+        public void finish() {
+            writeToFile();
+            lines.clear();
+        }
+
+        private void writeToFile() {
+            tmp.clear();
+            tmp.addAll(lines);
+
+            try {
+                Files.write(Paths.get(fileName), tmp, Charset.defaultCharset());
+            } catch (IOException e) {
+                System.out.println("ERROR: Failed to save tail: " + e.toString());
+                e.printStackTrace();
             }
-
-            private void writeToFile() {
-                tmp.clear();
-                tmp.addAll(lines);
-
-                try {
-                    Files.write(Paths.get(fileName), tmp, Charset.defaultCharset());
-                } catch (IOException e) {
-                    System.out.println("ERROR: Failed to save tail: " + e.toString());
-                    e.printStackTrace();
-                }
-            }
+        }
     }
 
     public static final Printer DEFAULT_OUTPUT = new Printer() {
         @Override
         public void println(String s) {
-            Output.println(s);
+            System.out.println(s);
         }
 
         @Override
         public void println() {
-            Output.println();
+            System.out.println();
         }
     };
 

@@ -24,8 +24,8 @@ public class SmartWordlistBenchmark extends Thread {
         }
         String lastTested = sb.toString();
 
-        System.out.printf("Current Pass: %s || est. %.0f Pass/sec%n", lastTested,
-            (SmartWordlistPasswd.testedPwds - lastCount) / (sleepTime * 0.001));
+        Output.println(String.format("Current Pass: %s || est. %.0f Pass/sec%n", lastTested,
+            (SmartWordlistPasswd.testedPwds - lastCount) / (sleepTime * 0.001)));
 
         lastCall = System.nanoTime();
         lastCount = SmartWordlistPasswd.testedPwds;
