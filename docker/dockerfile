@@ -4,6 +4,8 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 ADD tmp /app/android-keystore-password-recover
+COPY launch_jar.sh /app/launch_jar.sh
+RUN chmod +x /app/launch_jar.sh
 
 WORKDIR /app/android-keystore-password-recover
 RUN /app/android-keystore-password-recover/build.sh
